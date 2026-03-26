@@ -4,6 +4,7 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.itmo.tpo.lamoda.core.BasePage;
+import ru.itmo.tpo.lamoda.core.WindowOpenException;
 
 public class CartPage extends BasePage {
     private static final By[] CART_MARKERS = new By[] {
@@ -22,9 +23,9 @@ public class CartPage extends BasePage {
         return this;
     }
 
-    public boolean isLoaded() {
+    public boolean isLoaded() throws WindowOpenException {
         if (isAntiBotPage()) {
-            throw new AssertionError("Lamoda returned a Qrator anti-bot page instead of the cart page.");
+            throw new WindowOpenException("Lamoda returned a Qrator anti-bot page instead of the cart page.");
         }
         return hasCartLikeUrl() && isVisible(CART_MARKERS);
     }

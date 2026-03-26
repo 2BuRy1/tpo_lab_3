@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'ru.itmo.tpo'
@@ -7,7 +8,7 @@ version = '1.0-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -16,9 +17,13 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.seleniumhq.selenium:selenium-java:4.31.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.12.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.12.1'
-    testImplementation 'org.seleniumhq.selenium:selenium-java:4.31.0'
+}
+
+application {
+    mainClass = 'ru.itmo.tpo.lamoda.demo.DemoMain'
 }
 
 test {
@@ -28,4 +33,10 @@ test {
     systemProperty 'headless', System.getProperty('headless', 'true')
     systemProperty 'baseUrl', System.getProperty('baseUrl', 'https://www.lamoda.ru')
     systemProperty 'timeoutSeconds', System.getProperty('timeoutSeconds', '20')
+}
+
+run {
+    systemProperty 'browser', System.getProperty('browser', 'chrome')
+    systemProperty 'headless', System.getProperty('headless', 'false')
+    systemProperty 'pauseSeconds', System.getProperty('pauseSeconds', '5')
 }

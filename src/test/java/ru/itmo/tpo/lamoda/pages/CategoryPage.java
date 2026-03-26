@@ -4,6 +4,7 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.itmo.tpo.lamoda.core.BasePage;
+import ru.itmo.tpo.lamoda.core.WindowOpenException;
 
 public class CategoryPage extends BasePage {
     private static final String WOMEN_SHOES_PATH = "/c/15/shoes-women/";
@@ -38,9 +39,9 @@ public class CategoryPage extends BasePage {
         return this;
     }
 
-    public boolean isLoaded() {
+    public boolean isLoaded() throws WindowOpenException {
         if (isAntiBotPage()) {
-            throw new AssertionError("Lamoda returned a Qrator anti-bot page instead of the category page.");
+            throw new WindowOpenException("Lamoda returned a Qrator anti-bot page instead of the category page.");
         }
         return hasCategoryLikeUrl() && isVisible(CATEGORY_MARKERS);
     }
