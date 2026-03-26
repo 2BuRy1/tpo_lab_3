@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.itmo.tpo'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.12.1'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.12.1'
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.31.0'
+}
+
+test {
+    useJUnitPlatform()
+
+    systemProperty 'browser', System.getProperty('browser', 'chrome')
+    systemProperty 'headless', System.getProperty('headless', 'true')
+    systemProperty 'baseUrl', System.getProperty('baseUrl', 'https://www.lamoda.ru')
+    systemProperty 'timeoutSeconds', System.getProperty('timeoutSeconds', '20')
+}
