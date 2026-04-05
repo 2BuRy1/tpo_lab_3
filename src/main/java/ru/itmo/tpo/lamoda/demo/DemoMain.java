@@ -24,33 +24,30 @@ public final class DemoMain {
 
         WebDriver driver = createDriver(browser, headless);
         try {
-            URL pageUrl = Objects.requireNonNull(
-                    DemoMain.class.getClassLoader().getResource("demo/demo-page.html"),
-                    "Demo page not found on the classpath."
-            );
+
 
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             driver.manage().window().setSize(new org.openqa.selenium.Dimension(1200, 800));
-            driver.get(pageUrl.toExternalForm());
+            driver.get("http://advego.ru");
 
-            WebElement title = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//h1[contains(.,'Тестовая страница Selenium')]")
-            ));
-            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//button[@data-test='demo-button']")
-            ));
+//            WebElement title = wait.until(ExpectedConditions.visibilityOfElementLocated(
+//                    By.xpath("//h1[contains(.,'Тестовая страница Selenium')]")
+//            ));
+//            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(
+//                    By.xpath("//button[@data-test='demo-button']")
+//            ));
+//
+//            button.click();
+//
+//            WebElement status = wait.until(ExpectedConditions.visibilityOfElementLocated(
+//                    By.xpath("//*[@id='status' and contains(.,'Кнопка нажата')]")
+//            ));
 
-            button.click();
-
-            WebElement status = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//*[@id='status' and contains(.,'Кнопка нажата')]")
-            ));
-
-            System.out.println("DEMO PASS");
-            System.out.println("Browser: " + browser);
-            System.out.println("Headless: " + headless);
-            System.out.println("Title: " + title.getText());
-            System.out.println("Status: " + status.getText());
+//            System.out.println("DEMO PASS");
+//            System.out.println("Browser: " + browser);
+//            System.out.println("Headless: " + headless);
+//            System.out.println("Title: " + title.getText());
+//            System.out.println("Status: " + status.getText());
 
             if (pauseSeconds > 0) {
                 Thread.sleep(Duration.ofSeconds(pauseSeconds).toMillis());

@@ -19,7 +19,7 @@ public class CartPage extends BasePage {
     }
 
     public CartPage open() {
-        openRelative("/cart/");
+        openRelative("/checkout/cart/");
         return this;
     }
 
