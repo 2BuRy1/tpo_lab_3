@@ -1,4 +1,4 @@
-package ru.itmo.tpo.lamoda.config;
+package ru.itmo.tpo.advego.config;
 
 public enum BrowserType {
     CHROME,
@@ -14,4 +14,3 @@ public enum BrowserType {
         };
     }
 }
-

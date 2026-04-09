@@ -28,11 +28,17 @@ application {
 
 test {
     useJUnitPlatform()
+    include '**/advego/tests/**/*Test.class'
+    exclude '**/advego/tests/OrderPageDebugTest.class'
 
     systemProperty 'browser', System.getProperty('browser', 'chrome')
     systemProperty 'headless', System.getProperty('headless', 'true')
-    systemProperty 'baseUrl', System.getProperty('baseUrl', 'https://www.lamoda.ru')
-    systemProperty 'timeoutSeconds', System.getProperty('timeoutSeconds', '20')
+    systemProperty 'baseUrl', System.getProperty('baseUrl', 'https://advego.com')
+    systemProperty 'timeoutSeconds', System.getProperty('timeoutSeconds', '45')
+    systemProperty 'reuseSession', System.getProperty('reuseSession', 'false')
+    systemProperty 'manualLogin', System.getProperty('manualLogin', 'false')
+    systemProperty 'manualLoginTimeoutSeconds', System.getProperty('manualLoginTimeoutSeconds', '180')
+    systemProperty 'browserProfileDir', System.getProperty('browserProfileDir', '')
 }
 
 run {
