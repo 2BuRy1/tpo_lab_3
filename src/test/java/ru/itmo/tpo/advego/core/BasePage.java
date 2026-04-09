@@ -64,6 +64,19 @@ public abstract class BasePage {
         }
     }
 
+    protected WebElement findVisible(By locator) {
+        return driver.findElements(locator).stream()
+                .filter(element -> {
+                    try {
+                        return element.isDisplayed();
+                    } catch (Exception e) {
+                        return false;
+                    }
+                })
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Visible element not found: " + locator));
+    }
+
     protected void openRelative(String path) {
         openRelative(path, true);
     }
@@ -281,7 +294,7 @@ public abstract class BasePage {
         }
     }
 
-    private void scrollIntoView(WebElement element) {
+    protected void scrollIntoView(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
     }
 }
