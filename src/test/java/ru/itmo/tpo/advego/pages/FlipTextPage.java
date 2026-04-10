@@ -10,7 +10,7 @@ public class FlipTextPage extends BasePage {
 
     private final By inputTextArea = By.xpath("(//textarea[@id='textData' and not(contains(@style,'visibility: hidden'))])[1]");
     private final By outputTextArea = By.xpath("(//textarea[@id='textRes' and not(contains(@style,'visibility: hidden'))])[1]");
-    private final By flipButton = By.id("flipText");
+    private final By flipButton = By.xpath("//*[='flipText']");
 
     public FlipTextPage(WebDriver driver, Duration timeout, String baseUrl) {
         super(driver, timeout, baseUrl);

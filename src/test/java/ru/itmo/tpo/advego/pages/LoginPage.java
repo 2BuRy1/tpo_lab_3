@@ -54,6 +54,6 @@ public class LoginPage extends BasePage {
     }
 
     private org.openqa.selenium.By authorizedHeaderLocator() {
-        return xpath("//a[contains(@href,'/logout/') or contains(@href,'/user/') or contains(@href,'/money/add/')]");
+        return xpath("//a[contains(@href,'/logout/')]");
     }
 }

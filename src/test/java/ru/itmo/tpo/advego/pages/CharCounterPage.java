@@ -9,9 +9,9 @@ import java.time.Duration;
 public class CharCounterPage extends BasePage {
 
     private final By textArea = xpath("//textarea[@id='textcheck' and not(@tabindex='-9999')]");
-    private final By symbolsCount = By.id("symbolscount");
-    private final By symbolsNoSpaceCount = By.id("symbolscount_no_space");
-    private final By wordsCount = By.id("wordscount");
+    private final By symbolsCount = By.xpath("//*[='symbolscount']");
+    private final By symbolsNoSpaceCount = By.xpath("//*[='symbolscount_no_space']");
+    private final By wordsCount = By.xpath("//*[='wordscount']");
 
     public CharCounterPage(WebDriver driver, Duration timeout, String baseUrl) {
         super(driver, timeout, baseUrl);

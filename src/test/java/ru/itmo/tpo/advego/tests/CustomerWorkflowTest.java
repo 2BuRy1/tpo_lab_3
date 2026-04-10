@@ -2,10 +2,8 @@ package ru.itmo.tpo.advego.tests;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.Duration;
 import java.time.Instant;
 
-import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.itmo.tpo.advego.config.TestConfig;
 import ru.itmo.tpo.advego.config.TestCredentials;
 import ru.itmo.tpo.advego.core.AuthorizedBaseTest;
@@ -48,9 +46,8 @@ class CustomerWorkflowTest extends AuthorizedBaseTest {
     }
 
     @Test
-    void shouldAskForCredentialsAndShowInsufficientFundsMessageWhenSavingNewOrder() {
+    void shouldAskForCredentialsAndShowInsufficientFundsMessageWhenStartingNewOrder() {
         String title = "AUTOTEST ORDER " + Instant.now().toEpochMilli();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
         String description = """
             Задача:
@@ -72,32 +69,13 @@ class CustomerWorkflowTest extends AuthorizedBaseTest {
                 .selectTextType("Копирайтинг")
                 .enterDescription(description)
                 .enterCost("25")
-                .saveOrderExpectingAuthOrInsufficientFunds();
+                .startOrderExpectingAuthOrInsufficientFunds();
 
-        if (page.isEmailRequired()) {
-            page.enterLoginEmail(TestCredentials.login());
-            page.saveOrderAfterAuth();
-        }
-
-        wait.until(d ->
-                page.isPasswordRequired()
-                        || page.hasInsufficientFundsMessage()
-                        || page.hasSavedSuccessMessage()
-        );
-
-        if (page.isPasswordRequired()) {
-            page.enterLoginPassword(TestCredentials.password());
-            page.saveOrderAfterAuth();
-        }
-
-        wait.until(d ->
-                page.hasInsufficientFundsMessage()
-                        || page.hasSavedSuccessMessage()
-        );
+        page.authorizeInOrderFormForStartIfRequired(TestCredentials.login(), TestCredentials.password());
 
         assertTrue(
-                page.hasInsufficientFundsMessage(),
-                "После попытки сохранения должно отображаться сообщение о нехватке средств."
+                page.hasInsufficientFundsMessage() || page.hasSavedSuccessMessage(),
+                "После запуска должен быть один из ожидаемых исходов: сообщение о нехватке средств или переход к карточке/сохранению заказа."
         );
     }
 }

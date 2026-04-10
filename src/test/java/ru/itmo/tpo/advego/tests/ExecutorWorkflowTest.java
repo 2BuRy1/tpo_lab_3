@@ -39,7 +39,9 @@ class ExecutorWorkflowTest extends AuthorizedBaseTest {
 
     @Test
     void shouldPrepareArticleSellingFormWithRequiredControls() {
-        SellArticlePage page = new SellArticlePage(driver, TestConfig.timeout(), TestConfig.baseUrl()).open();
+        MyJobsPage jobsPage = new MyJobsPage(driver, TestConfig.timeout(), TestConfig.baseUrl()).open();
+        jobsPage.goToSellReadyArticle();
+        SellArticlePage page = new SellArticlePage(driver, TestConfig.timeout(), TestConfig.baseUrl());
 
         assertAll(
                 () -> assertTrue(page.hasForm(), "Форма добавления статьи должна присутствовать на странице."),
@@ -72,7 +74,9 @@ class ExecutorWorkflowTest extends AuthorizedBaseTest {
                 Описание намеренно превышает минимальный порог длины, чтобы пройти валидацию формы и дать возможность проверить размещение статьи в интерфейсе.
                 """;
 
-        SellArticlePage page = new SellArticlePage(driver, TestConfig.timeout(), TestConfig.baseUrl()).open();
+        MyJobsPage jobsPage = new MyJobsPage(driver, TestConfig.timeout(), TestConfig.baseUrl()).open();
+        jobsPage.goToSellReadyArticle();
+        SellArticlePage page = new SellArticlePage(driver, TestConfig.timeout(), TestConfig.baseUrl());
         page.enterTitle(title)
                 .selectCategory("IT, софт")
                 .selectTextType("Копирайтинг")

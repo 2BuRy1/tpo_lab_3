@@ -11,7 +11,7 @@ public class ReplaceTextPage extends BasePage {
     private final By searchInput = By.xpath("(//textarea[@id='searchStr' and not(contains(@style,'visibility: hidden'))])[1]");
     private final By replaceInput = By.xpath("(//textarea[@id='replaceStr' and not(contains(@style,'visibility: hidden'))])[1]");
     private final By textInput = By.xpath("(//textarea[@id='textData' and not(contains(@style,'visibility: hidden'))])[1]");
-    private final By replaceButton = By.id("replace");
+    private final By replaceButton = By.xpath("//*[='replace']");
 
     public ReplaceTextPage(WebDriver driver, Duration timeout, String baseUrl) {
         super(driver, timeout, baseUrl);

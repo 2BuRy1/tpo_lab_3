@@ -10,11 +10,11 @@ import ru.itmo.tpo.advego.core.BasePage;
 
 public class SiteIksPage extends BasePage {
 
-    private final By domainInput = By.id("url");
-    private final By checkButton = By.id("sqi_check_button");
-    private final By iksValue = By.id("sqi_value");
-    private final By resultUrlBlock = By.id("sqi_result_url_block");
-    private final By loading = By.id("common_loading");
+    private final By domainInput = By.xpath("//*[='url']");
+    private final By checkButton = By.xpath("//*[='sqi_check_button']");
+    private final By iksValue = By.xpath("//*[='sqi_value']");
+    private final By resultUrlBlock = By.xpath("//*[='sqi_result_url_block']");
+    private final By loading = By.xpath("//*[='common_loading']");
 
     public SiteIksPage(WebDriver driver, Duration timeout, String baseUrl) {
         super(driver, timeout, baseUrl);

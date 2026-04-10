@@ -38,6 +38,7 @@ test {
     systemProperty 'reuseSession', System.getProperty('reuseSession', 'false')
     systemProperty 'manualLogin', System.getProperty('manualLogin', 'false')
     systemProperty 'manualLoginTimeoutSeconds', System.getProperty('manualLoginTimeoutSeconds', '180')
+    systemProperty 'authPasswordDelaySeconds', System.getProperty('authPasswordDelaySeconds', '3')
     systemProperty 'browserProfileDir', System.getProperty('browserProfileDir', '')
 }
 

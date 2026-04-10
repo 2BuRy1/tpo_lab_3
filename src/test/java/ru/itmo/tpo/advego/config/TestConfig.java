@@ -47,6 +47,11 @@ public final class TestConfig {
         return Duration.ofSeconds(seconds);
     }
 
+    public static Duration authPasswordDelay() {
+        long seconds = Long.parseLong(System.getProperty("authPasswordDelaySeconds", "3"));
+        return Duration.ofSeconds(seconds);
+    }
+
     public static Path browserProfileDir(BrowserType browserType) {
         String configured = System.getProperty("browserProfileDir");
         if (configured != null && !configured.isBlank()) {

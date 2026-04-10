@@ -9,7 +9,7 @@ import ru.itmo.tpo.advego.core.BasePage;
 public class ReverseTextPage extends BasePage {
 
     private final By textArea = By.xpath("(//textarea[@id='textData' and not(contains(@style,'visibility: hidden'))])[1]");
-    private final By reverseButton = By.id("reverseText");
+    private final By reverseButton = By.xpath("//*[='reverseText']");
 
     public ReverseTextPage(WebDriver driver, Duration timeout, String baseUrl) {
         super(driver, timeout, baseUrl);

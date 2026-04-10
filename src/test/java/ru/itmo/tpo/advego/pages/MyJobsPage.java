@@ -34,4 +34,9 @@ public class MyJobsPage extends BasePage {
     public boolean hasSellArticleLink() {
         return count(xpath("//a[contains(@href,'/shop/sell/')]")) > 0;
     }
+
+    public void goToSellReadyArticle() {
+        click(xpath("(//a[contains(@href,'/shop/sell/') and (contains(normalize-space(.),'Продать готовую статью') or contains(normalize-space(.),'Продать статью'))])[1]"));
+        waitForUrl(url -> url.contains("/shop/sell/"));
+    }
 }

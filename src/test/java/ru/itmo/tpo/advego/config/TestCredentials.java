@@ -5,11 +5,13 @@ public final class TestCredentials {
     }
 
     public static String login() {
-       return readRequired("ADVEGO_LOGIN");
+       //return readRequired("ADVEGO_LOGIN");
+        return "kot514877@gmail.com";
     }
 
     public static String password() {
-        return readRequired("ADVEGO_PASSWORD");
+        //return readRequired("ADVEGO_PASSWORD");
+        return "Kirill1ghjff";
     }
 
     public static boolean isConfigured() {

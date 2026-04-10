@@ -8,7 +8,7 @@ import ru.itmo.tpo.advego.core.BasePage;
 
 public class WhoisPage extends BasePage {
 
-    private final By domainInput = By.id("url");
+    private final By domainInput = By.xpath("//*[='url']");
     private final By checkButton = By.cssSelector("button.submitCheckDomain");
     private final By resultBlock = By.cssSelector(".list > .list_item");
 
