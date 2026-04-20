@@ -96,6 +96,9 @@ public abstract class BasePage {
 
     protected void openAuthorizedRelative(String path, boolean dismissOverlays) {
         openRelative(path, dismissOverlays);
+        if (hasAuthorizedHeader()) {
+            return;
+        }
         loginThroughModalStupidly();
 
         wait.until(driver ->

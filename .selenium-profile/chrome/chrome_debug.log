@@ -1,0 +1,14 @@
+[86094:4156723:0410/092308.762094:INFO:components/enterprise/browser/controller/chrome_browser_cloud_management_controller.cc:225] No machine level policy manager exists.
+[86094:4156723:0410/092310.035301:INFO:CONSOLE:6] "YM ClientID: 1775801806589603599", source:  (6)
+[86094:4156723:0410/092310.576895:INFO:CONSOLE:0] "[DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o", source: https://advego.com/antiplagiat/ (0)
+[86094:4156723:0410/092310.576943:INFO:CONSOLE:0] "[DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o", source: https://advego.com/antiplagiat/ (0)
+[86111:4157017:0410/092312.107056:WARNING:services/audio/sync_reader.cc:161] ASR: No room in socket buffer.: Broken pipe (32)
+[86094:4156723:0410/092312.411925:INFO:CONSOLE:0] "[DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o", source: https://advego.com/antiplagiat/ (0)
+[86094:4156723:0410/092312.412023:INFO:CONSOLE:0] "[DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o", source: https://advego.com/antiplagiat/ (0)
+[86094:4156723:0410/092312.426052:INFO:CONSOLE:6] "YM ClientID: 1775801806589603599", source:  (6)
+[86094:4156723:0410/092312.941245:INFO:CONSOLE:0] "Framing 'https://www.google.com/' violates the following report-only Content Security Policy directive: "frame-ancestors 'self'". The violation has been logged, but no further action has been taken.
+", source:  (0)
+[86094:4156743:0410/092315.537356:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[86094:4156743:0410/092342.219908:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[86094:4156743:0410/092436.538557:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+[86094:4156743:0410/092634.855376:ERROR:google_apis/gcm/engine/registration_request.cc:291] Registration response error message: QUOTA_EXCEEDED

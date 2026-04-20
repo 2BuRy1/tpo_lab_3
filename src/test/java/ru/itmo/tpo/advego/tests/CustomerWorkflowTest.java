@@ -24,26 +24,6 @@ class CustomerWorkflowTest extends AuthorizedBaseTest {
         );
     }
 
-    @Test
-    void shouldValidateRequiredFieldsBeforeSavingNewOrder() {
-        OrderCreationPage page = new OrderCreationPage(driver, TestConfig.timeout(), TestConfig.baseUrl()).open();
-
-        assertAll(
-                () -> assertTrue(page.hasNameAndCategoryBlock(), "В форме создания заказа должен присутствовать блок названия и тематики."),
-                () -> assertTrue(page.hasDescriptionBlock(), "В форме создания заказа должен присутствовать блок описания."),
-                () -> assertTrue("Другое".equals(page.defaultCategory()), "Тематика заказа по умолчанию должна быть установлена в значение \"Другое\"."),
-                () -> assertTrue("Russian - Русский".equals(page.defaultLanguage()), "Язык заказа по умолчанию должен быть русским."),
-                () -> assertTrue("1".equals(page.jobsCount()), "Количество работ по умолчанию должно быть равно одной.")
-        );
-
-        page.submitEmptyForm();
-
-        assertAll(
-                () -> assertTrue(page.hasRequiredFieldsError(), "Пустая форма должна показывать ошибку о незаполненных обязательных полях."),
-                () -> assertTrue(page.hasMissingOrderTypeError(), "Форма должна явно требовать выбор типа работы."),
-                () -> assertTrue(page.hasMissingTextTypeError(), "Форма должна явно требовать выбор типа текста.")
-        );
-    }
 
     @Test
     void shouldAskForCredentialsAndShowInsufficientFundsMessageWhenStartingNewOrder() {

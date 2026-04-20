@@ -35,7 +35,7 @@ public final class TestConfig {
     }
 
     public static boolean reuseSession() {
-        return Boolean.parseBoolean(System.getProperty("reuseSession", "false"));
+        return Boolean.parseBoolean(System.getProperty("reuseSession", "true"));
     }
 
     public static boolean manualLogin() {

@@ -8,11 +8,11 @@ import ru.itmo.tpo.advego.core.BasePage;
 
 public class LtvCalculatorPage extends BasePage {
 
-    private final By aovInput = By.xpath("//*[='AOV']");
-    private final By rprInput = By.xpath("//*[='RPR']");
-    private final By lifetimeInput = By.xpath("//*[='Lifetime']");
-    private final By resultInput = By.xpath("//*[='res']");
-    private final By calcButton = By.xpath("//*[='calcCTR']");
+    private final By aovInput = By.id("AOV");
+    private final By rprInput = By.id("RPR");
+    private final By lifetimeInput = By.id("Lifetime");
+    private final By resultInput = By.id("res");
+    private final By calcButton = By.id("calcCTR");
 
     public LtvCalculatorPage(WebDriver driver, Duration timeout, String baseUrl) {
         super(driver, timeout, baseUrl);

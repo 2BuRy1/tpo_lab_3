@@ -8,10 +8,10 @@ import ru.itmo.tpo.advego.core.BasePage;
 
 public class RomiCalculatorPage extends BasePage {
 
-    private final By profitInput = By.xpath("//*[='profit']");
-    private final By spendingInput = By.xpath("//*[='spending']");
-    private final By resultInput = By.xpath("//*[='res']");
-    private final By calcButton = By.xpath("//*[='calcROMI']");
+    private final By profitInput = By.id("profit");
+    private final By spendingInput = By.id("spending");
+    private final By resultInput = By.id("res");
+    private final By calcButton = By.id("calcROMI");
 
     public RomiCalculatorPage(WebDriver driver, Duration timeout, String baseUrl) {
         super(driver, timeout, baseUrl);

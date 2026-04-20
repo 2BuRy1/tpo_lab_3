@@ -2,6 +2,7 @@ package ru.itmo.tpo.advego.core;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.io.IOException;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -55,8 +56,10 @@ public final class DriverFactory {
         options.addPreference("intl.accept_languages", "ru-RU,ru");
         options.addPreference("dom.webnotifications.enabled", false);
         if (TestConfig.reuseSession()) {
+            Path profileDir = ensureBrowserProfileDir(BrowserType.FIREFOX);
+            cleanupFirefoxProfileLocks(profileDir);
             options.addArguments("-profile");
-            options.addArguments(TestConfig.browserProfileDir(BrowserType.FIREFOX).toString());
+            options.addArguments(profileDir.toString());
         }
         if (headless) {
             options.addArguments("-headless");
@@ -71,5 +74,29 @@ public final class DriverFactory {
             }
         }
         return java.util.Optional.empty();
+    }
+
+    private static Path ensureBrowserProfileDir(BrowserType browserType) {
+        Path dir = TestConfig.browserProfileDir(browserType);
+        try {
+            Files.createDirectories(dir);
+        } catch (IOException e) {
+            throw new IllegalStateException("Не удалось создать директорию профиля браузера: " + dir, e);
+        }
+        return dir;
+    }
+
+    private static void cleanupFirefoxProfileLocks(Path profileDir) {
+        deleteIfExists(profileDir.resolve(".parentlock"));
+        deleteIfExists(profileDir.resolve("parent.lock"));
+        deleteIfExists(profileDir.resolve("lock"));
+    }
+
+    private static void deleteIfExists(Path file) {
+        try {
+            Files.deleteIfExists(file);
+        } catch (IOException ignored) {
+            // Игнорируем: lock-файл может быть удален Firefox при старте.
+        }
     }
 }

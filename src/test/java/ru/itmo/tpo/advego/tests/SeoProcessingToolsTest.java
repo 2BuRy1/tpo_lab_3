@@ -40,8 +40,8 @@ public class SeoProcessingToolsTest extends BaseTest {
 
         assertTrue(page.isOpened());
         assertTrue(page.hasNonEmptyIp());
-        assertFalse(page.hasNonEmptyLocation());
-        assertFalse(page.hasNonEmptyProviderAddress());
+        assertTrue(page.hasNonEmptyLocation() || page.hasNonEmptyProviderAddress(),
+                "На странице IP-инфо должна присутствовать хотя бы одна непустая дополнительная характеристика (локация или адрес провайдера).");
     }
 
     @Test
@@ -67,5 +67,4 @@ public class SeoProcessingToolsTest extends BaseTest {
         assertTrue(page.isConvertedTo("zima-v-derevne"));
     }
 }
-
 

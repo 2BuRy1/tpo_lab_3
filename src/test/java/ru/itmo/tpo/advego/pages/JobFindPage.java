@@ -8,6 +8,7 @@ import ru.itmo.tpo.advego.core.BasePage;
 
 public class JobFindPage extends BasePage {
     private static final Pattern HEADING_COUNT_PATTERN = Pattern.compile("Все заказы\\s*/\\s*(\\d+)");
+    private static final Pattern ORDER_ID_PATTERN = Pattern.compile("(\\d{5,})");
 
     public JobFindPage(WebDriver driver, Duration timeout, String baseUrl) {
         super(driver, timeout, baseUrl);
@@ -45,11 +46,21 @@ public class JobFindPage extends BasePage {
     }
 
     public String firstOrderId() {
-        Matcher matcher = Pattern.compile("\\d{6,}").matcher(firstOrderCardText());
-        if (!matcher.find()) {
-            throw new IllegalStateException("Не удалось извлечь числовой идентификатор первого заказа из карточки.");
+        int linksInCard = count(xpath("(" + orderCardsXPath() + ")[1]//a[@href]"));
+        for (int i = 1; i <= linksInCard; i++) {
+            String href = attribute(xpath("((" + orderCardsXPath() + ")[1]//a[@href])[" + i + "]"), "href");
+            Matcher hrefMatcher = ORDER_ID_PATTERN.matcher(href == null ? "" : href);
+            if (hrefMatcher.find()) {
+                return hrefMatcher.group(1);
+            }
         }
-        return matcher.group();
+
+        Matcher textMatcher = ORDER_ID_PATTERN.matcher(firstOrderCardText());
+        if (textMatcher.find()) {
+            return textMatcher.group(1);
+        }
+
+        throw new IllegalStateException("Не удалось извлечь числовой идентификатор первого заказа из карточки.");
     }
 
     public String firstOrderType() {
@@ -87,6 +98,6 @@ public class JobFindPage extends BasePage {
     }
 
     private String orderCardsXPath() {
-        return "//*[contains(@class,'job_row') or contains(@class,'jobs_row') or contains(@class,'list_item')][.//a[contains(@href,'/job/') or contains(@href,'/order/')]]";
+        return "//*[contains(@class,'job_row') or contains(@class,'jobs_row') or contains(@class,'list_item')][.//a[contains(@href,'/job/') or contains(@href,'/order/')]][.//*[contains(normalize-space(),'Взять') or contains(normalize-space(),'Заявк') or contains(normalize-space(),'руб') or contains(normalize-space(),'₽')]]";
     }
 }

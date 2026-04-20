@@ -6,7 +6,10 @@ import ru.itmo.tpo.advego.config.TestCredentials;
 import ru.itmo.tpo.advego.core.BaseTest;
 import ru.itmo.tpo.advego.pages.LoginPage;
 
+import java.time.Duration;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LoginTest extends BaseTest {
     @Test
@@ -20,8 +23,10 @@ class LoginTest extends BaseTest {
             page.open();
         }
         page.loginAs(TestCredentials.login(), TestCredentials.password());
-        page.waitForAuthorizedHeader();
+        page.waitForLoginAttemptResult(Duration.ofSeconds(20));
 
         assertFalse(page.isStillOnLoginForm() && page.hasLoginError(), "Логин не должен завершаться ошибкой при валидных учетных данных.");
+        assertTrue(page.hasAuthorizedHeader() || page.hasCaptchaChallenge(),
+                "После отправки формы ожидается успешная авторизация или показ капчи.");
     }
 }

@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.itmo.tpo.advego.core.BasePage;
 
 public class RegistrationPage extends BasePage {
+    private static final String DEFAULT_REG_PASSWORD = "AutotestPwd123!";
+
     public RegistrationPage(WebDriver driver, Duration timeout, String baseUrl) {
         super(driver, timeout, baseUrl);
     }
@@ -40,7 +42,7 @@ public class RegistrationPage extends BasePage {
     }
 
     public boolean hasEmailInput() {
-        return isVisible(emailLocator());
+        return count(emailLocator()) > 0 || isVisible(emailLocator());
     }
 
     public boolean hasPasswordInput() {
@@ -60,9 +62,15 @@ public class RegistrationPage extends BasePage {
     }
 
     public RegistrationPage registerAs(String email, String nickname) {
-        fill(emailLocator(), email);
+        fillEmail(email);
         if (count(nicknameLocator()) > 0) {
-            fill(nicknameLocator(), nickname);
+            fillNickname(nickname);
+        }
+        if (count(passwordLocator()) > 0) {
+            fillPassword(DEFAULT_REG_PASSWORD);
+        }
+        if (count(passwordConfirmLocator()) > 0) {
+            fillPasswordConfirm(DEFAULT_REG_PASSWORD);
         }
         submitRegistration();
         return this;
@@ -102,19 +110,19 @@ public class RegistrationPage extends BasePage {
     }
 
     private By emailLocator() {
-        return xpath("(//form[contains(@action,'/join/') or @id='member-registration']//input[@id='join-form-email' or @name='email'])[1]");
+        return xpath("(//input[@id='join-form-email' or @name='email' or @name='login'])[1]");
     }
 
     private By passwordLocator() {
-        return xpath("(//form[contains(@action,'/join/') or @id='member-registration']//input[@type='password' or @name='pwd' or @name='password'])[1]");
+        return xpath("(//input[@type='password' or @name='pwd' or @name='password' or contains(@id,'password')][1])");
     }
 
     private By passwordConfirmLocator() {
-        return xpath("(//form[contains(@action,'/join/') or @id='member-registration']//input[contains(@name,'confirm') or contains(@name,'repeat') or @name='pwd2'])[1]");
+        return xpath("(//input[contains(@name,'confirm') or contains(@name,'repeat') or @name='pwd2' or contains(@id,'confirm')][1])");
     }
 
     private By nicknameLocator() {
-        return xpath("(//form[contains(@action,'/join/') or @id='member-registration']//input[@id='join-form-name' or @name='name'])[1]");
+        return xpath("(//input[@id='join-form-name' or @name='name'])[1]");
     }
 
     private By registerButtonLocator() {
@@ -131,6 +139,66 @@ public class RegistrationPage extends BasePage {
         element.click();
         element.clear();
         element.sendKeys(value);
+    }
+
+    private void fillEmail(String value) {
+        if (!fillFirstAvailableInput(value,
+                "#join-form-email",
+                "input[name='email']",
+                "input[name='login']")) {
+            fill(emailLocator(), value);
+        }
+    }
+
+    private void fillNickname(String value) {
+        if (!fillFirstAvailableInput(value,
+                "#join-form-name",
+                "input[name='name']")) {
+            fill(nicknameLocator(), value);
+        }
+    }
+
+    private void fillPassword(String value) {
+        if (!fillFirstAvailableInput(value,
+                "#join-form-pwd",
+                "input[name='pwd']",
+                "input[name='password']",
+                "input[type='password']")) {
+            fill(passwordLocator(), value);
+        }
+    }
+
+    private void fillPasswordConfirm(String value) {
+        if (!fillFirstAvailableInput(value,
+                "input[name='pwd2']",
+                "input[name*='confirm']",
+                "input[name*='repeat']",
+                "input[id*='confirm']")) {
+            fill(passwordConfirmLocator(), value);
+        }
+    }
+
+    private boolean fillFirstAvailableInput(String value, String... selectors) {
+        Object filled = executeScript("""
+                const selectors = arguments[0];
+                const value = arguments[1];
+                let target = null;
+                for (const selector of selectors) {
+                    const all = Array.from(document.querySelectorAll(selector));
+                    if (!all.length) continue;
+                    target = all.find(el => el.offsetParent !== null && !el.disabled) || all.find(el => !el.disabled) || all[0];
+                    if (target) break;
+                }
+                if (!target) return false;
+                target.removeAttribute('disabled');
+                target.focus();
+                target.value = value;
+                target.dispatchEvent(new Event('input', {bubbles: true}));
+                target.dispatchEvent(new Event('change', {bubbles: true}));
+                target.dispatchEvent(new Event('blur', {bubbles: true}));
+                return true;
+                """, selectors, value);
+        return Boolean.TRUE.equals(filled);
     }
 
     private void submitRegistration() {

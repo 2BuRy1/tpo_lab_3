@@ -1,0 +1,8 @@
+2026/04/10-09:23:05.259 3f6bf8 Reusing MANIFEST /Users/montana/MyLabs/tpo/tpo_lab_3/.selenium-profile/chrome/Default/Local Storage/leveldb/MANIFEST-000001
+2026/04/10-09:23:05.260 3f6bf8 Recovering log #3
+2026/04/10-09:23:05.261 3f6bf8 Level-0 table #3: started
+2026/04/10-09:23:05.267 3f6bf8 Level-0 table #3: 16752 bytes OK
+2026/04/10-09:23:05.267 3f6bf8 Recovering log #4
+2026/04/10-09:23:05.267 3f6bf8 Reusing old log /Users/montana/MyLabs/tpo/tpo_lab_3/.selenium-profile/chrome/Default/Local Storage/leveldb/000004.log 
+2026/04/10-09:23:05.268 3f6bf8 Delete type=0 #3
+2026/04/10-09:23:05.268 3f6bf8 Delete type=2 #5
